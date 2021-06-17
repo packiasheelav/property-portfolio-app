@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import TopNav from './components/TopNav';
 
-function App() {
+import { Switch } from "react-router";
+import { Route } from "react-router-dom";
+import { makeStyles } from "@material-ui/core";
+import routes from "../src/routes";
+
+const useStyles = makeStyles({
+  snackbar: {},
+  column: {
+    display: "flex",
+    flexFlow: "column",
+    height: "100%",
+  },
+});
+
+const App = () => {
+  const classes = useStyles();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div className={classes.column}>
+				<TopNav />
+          <Switch>
+            {routes.map((route) => (
+              <Route key={route.path?.toString()} {...route} />
+            ))}
+          </Switch>
+      </div>
   );
-}
+};
 
 export default App;
